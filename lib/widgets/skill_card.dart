@@ -61,14 +61,16 @@ class _SkillCardState extends State<SkillCard> {
       },
       width: 200,
       height: 100,
-      padding: EdgeInsets.all(kDefaultPadding),
+      padding: const EdgeInsets.all(kDefaultPadding),
       decoration: BoxDecoration(
         color: kGreyColor.withOpacity(0.1),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: widget.style == 1 ? Radius.zero : Radius.circular(15),
-          bottomRight: widget.style == 2 ? Radius.zero : Radius.circular(15),
-          bottomLeft: widget.style == 3 ? Radius.zero : Radius.circular(15),
+          topLeft: const Radius.circular(15),
+          topRight: widget.style == 1 ? Radius.zero : const Radius.circular(15),
+          bottomRight:
+              widget.style == 2 ? Radius.zero : const Radius.circular(15),
+          bottomLeft:
+              widget.style == 3 ? Radius.zero : const Radius.circular(15),
         ),
       ),
       child: Row(
@@ -78,14 +80,14 @@ class _SkillCardState extends State<SkillCard> {
             height: 50,
             child: widget.image,
           ),
-          SizedBox(
+          const SizedBox(
             width: kDefaultPadding,
           ),
           SizedBox(
             width: 100,
             child: Text(
               widget.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: kWhiteColor,

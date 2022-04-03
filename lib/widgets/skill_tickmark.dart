@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:personal_portfolio/constants.dart';
 
 class SkillTickMark extends StatelessWidget {
@@ -14,11 +13,11 @@ class SkillTickMark extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
+        const Icon(
           CupertinoIcons.check_mark_circled,
           color: kRedColor,
         ),
-        SizedBox(width: kDefaultPadding / 2),
+        const SizedBox(width: kDefaultPadding / 2),
         Text(text),
       ],
     );

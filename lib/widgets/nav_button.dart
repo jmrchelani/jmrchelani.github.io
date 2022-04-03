@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/constants.dart';
 
@@ -34,7 +35,9 @@ class _NavButtonState extends State<NavButton> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.isSelected);
+    if (kDebugMode) {
+      print(widget.isSelected);
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -55,7 +58,7 @@ class _NavButtonState extends State<NavButton> {
           duration: kDefaultDuration,
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 1,
               ),
               SizedBox(

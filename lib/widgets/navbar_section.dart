@@ -15,58 +15,118 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Text(
-              'Milton.',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                ...navItems
-                    .map(
-                      (e) => NavButton(
-                        text: e['text'],
-                        onPressed: e['onPressed'],
-                        isSelected: currentIndex == e['index'],
+      width:
+          MediaQuery.of(context).size.width < kMaxWidth ? kMaxWidth / 2 : null,
+      child: MediaQuery.of(context).size.width > kMaxWidth / 2
+          ? SizedBox(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: MediaQuery.of(context).size.width < kMaxWidth ? 1 : 3,
+                    child: const Text(
+                      'Milton.',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                    .toList(),
-                // NavButton(
-                //   text: 'Home',
-                //   onPressed: () {},
-                //   isSelected: currentIndex == 0,
-                // ),
-                // Text(
-                //   'About Us',
-                //   style: TextStyle(
-                //     color: kGreyColor,
-                //     fontSize: 16,
-                //   ),
-                // ),
-                // Text('Services'),
-                // Text('Contact Us'),
-                SizedBox(
-                  height: 16,
-                  child: VerticalDivider(
-                    color: kGreyColor,
-                    thickness: 1,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ...navItems
+                            .map(
+                              (e) => NavButton(
+                                text: e['text'],
+                                onPressed: e['onPressed'],
+                                isSelected: currentIndex == e['index'],
+                              ),
+                            )
+                            .toList(),
+                        // NavButton(
+                        //   text: 'Home',
+                        //   onPressed: () {},
+                        //   isSelected: currentIndex == 0,
+                        // ),
+                        // Text(
+                        //   'About Us',
+                        //   style: TextStyle(
+                        //     color: kGreyColor,
+                        //     fontSize: 16,
+                        //   ),
+                        // ),
+                        // Text('Services'),
+                        // Text('Contact Us'),
+                        const SizedBox(
+                          height: 16,
+                          child: VerticalDivider(
+                            color: kGreyColor,
+                            thickness: 1,
+                          ),
+                        ),
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.local_phone,
+                              color: kGreyColor,
+                            ),
+                            SizedBox(
+                              width: kDefaultPadding / 2,
+                            ),
+                            Text(
+                              '+92 330 2627870',
+                              style: TextStyle(
+                                color: kRedColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                const Text(
+                  'Milton.',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(
+                  height: kDefaultPadding,
+                ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    ...navItems
+                        .map(
+                          (e) => NavButton(
+                            text: e['text'],
+                            onPressed: e['onPressed'],
+                            isSelected: currentIndex == e['index'],
+                          ),
+                        )
+                        .toList(),
+                  ],
+                ),
+                const SizedBox(
+                  height: kDefaultPadding,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
                     Icon(
                       Icons.local_phone,
                       color: kGreyColor,
@@ -86,9 +146,6 @@ class NavBar extends StatelessWidget {
                 )
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

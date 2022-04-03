@@ -1,3 +1,11 @@
+const kYoutubeUrl = 'https://www.youtube.com/channel/UCUHyadk9Gnc-MOv7uqSVdHg';
+const kLinkedInUrl = 'https://www.linkedin.com/in/jmrchelani';
+const kFacebookUrl = 'https://www.facebook.com/jmrchelani';
+const kInstagramUrl = 'https://www.instagram.com/jmrchelani';
+const kGithubUrl = 'https://www.github.com/jmrchelani';
+const kCVUrl =
+    'https://drive.google.com/file/d/1-R5ugDJK22X-92JIGaQcTi3toinRyLH2/view?usp=sharing';
+
 const portfolioDetails = [
   {
     'title': 'Live Currency Converter App',
@@ -13,7 +21,7 @@ const portfolioDetails = [
         'A responsive full fledged Portfolio built with Flutter and Dart',
     'url': 'https://github.com/jmrchelani/flutter_portfolio',
     'img':
-        'https://media-exp1.licdn.com/dms/image/sync/C5627AQFPNlaHAd6YWQ/articleshare-shrink_800/0/1647856561358?e=1648476000&v=beta&t=qXLcvglc85_0nMgKpYmkYmLdyb4ohRdEH6vFQtutaiI',
+        'https://raw.githubusercontent.com/jmrchelani/flutter_portfolio/master/image.png',
   },
   {
     'title': 'Python Address Book (GUI)',
@@ -37,14 +45,13 @@ const portfolioDetails = [
         'A simple to-do list app with a responsive design and a clean code.',
     'url': 'https://github.com/jmrchelani/todo-list-flutter',
     'img':
-        'https://media-exp1.licdn.com/dms/image/sync/C5627AQGI08JlOS2nHA/articleshare-shrink_800/0/1647856561030?e=1648476000&v=beta&t=aDVzFBNfQhizwUGk_fwt0dbhh-V8yuwWa7YBVhMxTvk',
+        'https://raw.githubusercontent.com/jmrchelani/todo-list-flutter/main/images/All_Cat.png',
   },
   {
     'title': 'Book Shop PHP',
     'description':
         'A book shop website totally made from scratch using PHP and MySQL.',
     'url': 'https://github.com/jmrchelani/book-shop-php/',
-    'img':
-        'https://media-exp1.licdn.com/dms/image/sync/C5627AQFItPfVoTV1fQ/articleshare-shrink_800/0/1647516416844?e=1648472400&v=beta&t=wgkoed8fSHbSvd0naPHPIgUlSFKwJ6Pf1YYPv32oU3o',
+    'img': 'http://img.youtube.com/vi/1W4Eox53O2U/hqdefault.jpg',
   }
 ];

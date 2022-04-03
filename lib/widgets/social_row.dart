@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:personal_portfolio/constants.dart';
+import 'package:personal_portfolio/data.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SocialRow extends StatelessWidget {
   const SocialRow({
@@ -12,48 +14,71 @@ class SocialRow extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Follow Me',
-            style: TextStyle(
-              color: kGreyColor,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            )),
-        SizedBox(
-          width: kDefaultPadding,
-        ),
-        SizedBox(
-          width: 16,
-          child: Divider(
-            thickness: 1,
-            color: kRedColor,
+        if (MediaQuery.of(context).size.width > 400)
+          Row(
+            children: const [
+              Text(
+                'Follow Me',
+                style: TextStyle(
+                  color: kGreyColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                width: kDefaultPadding,
+              ),
+              SizedBox(
+                width: 16,
+                child: Divider(
+                  thickness: 1,
+                  color: kRedColor,
+                ),
+              ),
+              SizedBox(
+                width: kDefaultPadding,
+              ),
+            ],
           ),
-        ),
-        SizedBox(
-          width: kDefaultPadding,
-        ),
         SocialRowBtn(
           icon: FontAwesomeIcons.linkedinIn,
-          onPressed: () {},
+          onPressed: () async {
+            if (!await launch(kLinkedInUrl)) {
+              throw 'Could not launch https://www.linkedin.com/in/jmrchelani/';
+            }
+          },
         ),
-        SizedBox(
+        const SizedBox(
           width: kDefaultPadding / 2,
         ),
         SocialRowBtn(
-          onPressed: () {},
+          onPressed: () async {
+            if (!await launch(kFacebookUrl)) {
+              throw 'Could not launch https://www.facebook.com/jmrchelani/';
+            }
+          },
           icon: FontAwesomeIcons.facebookF,
         ),
-        SizedBox(
+        const SizedBox(
           width: kDefaultPadding / 2,
         ),
         SocialRowBtn(
-          onPressed: () {},
-          icon: FontAwesomeIcons.twitter,
+          onPressed: () async {
+            if (!await launch(kGithubUrl)) {
+              throw 'Could not launch https://www.github.com/jmrchelani/';
+            }
+          },
+          icon: FontAwesomeIcons.github,
         ),
-        SizedBox(
+        const SizedBox(
           width: kDefaultPadding / 2,
         ),
         SocialRowBtn(
-          onPressed: () {},
+          onPressed: () async {
+            if (!await launch(kInstagramUrl)) {
+              throw 'Could not launch https://www.instagram.com/jmrchelani/';
+            }
+          },
           icon: FontAwesomeIcons.instagram,
         ),
       ],
