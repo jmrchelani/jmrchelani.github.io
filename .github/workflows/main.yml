@@ -1,0 +1,13 @@
+- name: fork: Deploy Flutter web app to github pages
+  # You may pin to the exact commit or the version.
+  # uses: jeremynac/flutter-gh-pages@7f889304fe69cbf1d420d2517f516e0d95cbd1ef
+  uses: jeremynac/flutter-gh-pages@beta
+  with:
+    # Which web renderer to be used, default is auto
+    webRenderer: # optional, default is auto
+    # The directory where the project is (default .)
+    workingDir: # optional, default is .
+    # 
+    targetBranch: # optional, default is gh-pages
+    # Custom args like: --dart-define="simple=example"
+    customArgs: # optional
