@@ -52,6 +52,6 @@ const portfolioDetails = [
     'description':
         'A book shop website totally made from scratch using PHP and MySQL.',
     'url': 'https://github.com/jmrchelani/book-shop-php/',
-    'img': 'http://img.youtube.com/vi/1W4Eox53O2U/hqdefault.jpg',
+    'img': 'https://img.youtube.com/vi/1W4Eox53O2U/hqdefault.jpg',
   }
 ];
