@@ -10,6 +10,7 @@ window.BLOG_POSTS = [
       "Software",
       "Milton"
     ],
+    "readingTime": 1,
     "url": "https://jmrchelani.com/blog/hello-milton/"
   }
 ];
