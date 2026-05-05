@@ -8,6 +8,7 @@ const BLOG_DIR = path.join(ROOT, "blog");
 const AUTHOR = "Mahtab Chelani aka Milton";
 const SITE_TITLE = "Milton's Blog";
 const SITE_DESCRIPTION = "Notes from Mahtab Chelani aka Milton on software, products, automation, tooling, and useful internet things.";
+const SITE_NAV_LABEL = "Portfolio";
 
 function escapeHTML(value) {
   return String(value ?? "")
@@ -78,6 +79,11 @@ function renderInline(markdown) {
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
   return html;
+}
+
+function readingTime(markdown) {
+  const words = markdown.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 210));
 }
 
 function renderMarkdown(markdown) {
@@ -182,9 +188,11 @@ function readPosts() {
         date: data.date || new Date().toISOString().slice(0, 10),
         updated: data.updated || data.date || new Date().toISOString().slice(0, 10),
         tags: Array.isArray(data.tags) ? data.tags : [],
+        cover: data.cover || "",
         draft: Boolean(data.draft),
         body: articleBody,
-        html: renderMarkdown(articleBody)
+        html: renderMarkdown(articleBody),
+        readingTime: readingTime(articleBody)
       };
     })
     .filter((post) => !post.draft)
@@ -214,20 +222,22 @@ function pageShell({ title, description, canonical, body, type = "website", extr
     ${extraHead}
   </head>
   <body>
-    <main class="blog-shell">
+    <div class="blog-page-frame">
       <nav class="blog-nav" aria-label="Blog navigation">
         <a class="blog-brand" href="/blog/">
           <strong>${escapeHTML(SITE_TITLE)}</strong>
           <span>${escapeHTML(AUTHOR)}</span>
         </a>
         <div class="blog-actions">
-          <a href="/">Portfolio OS</a>
+          <a href="/">${escapeHTML(SITE_NAV_LABEL)}</a>
           <a href="/rss.xml">RSS</a>
           <a href="/sitemap.xml">Sitemap</a>
         </div>
       </nav>
-      ${body}
-    </main>
+      <main class="blog-shell">
+        ${body}
+      </main>
+    </div>
   </body>
 </html>
 `;
@@ -256,6 +266,10 @@ function renderPostPage(post) {
     ? `<div class="blog-tags">${post.tags.map((tag) => `<span>${escapeHTML(tag)}</span>`).join("")}</div>`
     : "";
 
+  const cover = post.cover
+    ? `<figure class="post-cover"><img src="${escapeAttr(post.cover)}" alt=""><figcaption>${escapeHTML(post.title)}</figcaption></figure>`
+    : "";
+
   return pageShell({
     title: `${post.title} | ${SITE_TITLE}`,
     description: post.description,
@@ -263,16 +277,23 @@ function renderPostPage(post) {
     type: "article",
     extraHead: `<script type="application/ld+json">${postJsonLd(post)}</script>`,
     body: `
+      <aside class="share-rail" aria-label="Share">
+        <span>Share</span>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${SITE_URL}/blog/${post.slug}/`)}">in</a>
+        <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(`${SITE_URL}/blog/${post.slug}/`)}">x</a>
+      </aside>
       <article class="post-article">
         <header class="blog-header">
           <div class="blog-meta">
             <time datetime="${escapeAttr(post.date)}">${escapeHTML(formatLongDate(post.date))}</time>
+            <span>${post.readingTime} min read</span>
             <span>by ${escapeHTML(AUTHOR)}</span>
           </div>
           <h1>${escapeHTML(post.title)}</h1>
           <p class="blog-description">${escapeHTML(post.description)}</p>
           ${tags}
         </header>
+        ${cover}
         ${post.html}
       </article>
     `
@@ -290,6 +311,7 @@ function renderIndex(posts) {
         <article class="post-card">
           <div class="blog-meta">
             <time datetime="${escapeAttr(post.date)}">${escapeHTML(formatLongDate(post.date))}</time>
+            <span>${post.readingTime} min read</span>
           </div>
           <h2><a href="/blog/${escapeAttr(post.slug)}/">${escapeHTML(post.title)}</a></h2>
           <p>${escapeHTML(post.description)}</p>
@@ -347,6 +369,7 @@ function publicPostData(post) {
     date: post.date,
     updated: post.updated,
     tags: post.tags,
+    readingTime: post.readingTime,
     url: `${SITE_URL}/blog/${post.slug}/`
   };
 }
