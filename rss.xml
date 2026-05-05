@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Milton&#039;s Blog</title>
+    <link>https://jmrchelani.com/blog/</link>
+    <description>Notes from Mahtab Chelani aka Milton on software, products, automation, tooling, and useful internet things.</description>
+    <item>
+      <title>Hello, I am Milton</title>
+      <link>https://jmrchelani.com/blog/hello-milton/</link>
+      <guid>https://jmrchelani.com/blog/hello-milton/</guid>
+      <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+      <description>A short starting note for Milton&#039;s blog on building software, products, tooling, and useful internet things.</description>
+    </item>
+  </channel>
+</rss>
