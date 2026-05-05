@@ -305,6 +305,36 @@ a {
   box-shadow: 0 4px 0 #2a5fb8, 0 8px 0 #2a5fb8;
 }
 
+.icon-blog .shortcut-icon {
+  background: linear-gradient(135deg, #ffffff 0 70%, #8dc63f 71% 100%);
+}
+
+.icon-blog .shortcut-icon::before {
+  content: "";
+  left: 10px;
+  top: 8px;
+  width: 22px;
+  height: 26px;
+  border: 1px solid rgba(10, 63, 159, 0.38);
+  background:
+    linear-gradient(90deg, #2f80ed 0 5px, transparent 5px),
+    linear-gradient(#5b6b7f 0 0) 10px 8px / 8px 2px no-repeat,
+    linear-gradient(#5b6b7f 0 0) 10px 14px / 10px 2px no-repeat,
+    linear-gradient(#5b6b7f 0 0) 10px 20px / 7px 2px no-repeat,
+    #ffffff;
+}
+
+.icon-blog .shortcut-icon::after {
+  content: "";
+  right: 8px;
+  bottom: 7px;
+  width: 10px;
+  height: 10px;
+  border-left: 1px solid rgba(10, 63, 159, 0.28);
+  border-top: 1px solid rgba(10, 63, 159, 0.28);
+  background: #dbeafe;
+}
+
 .icon-experience .shortcut-icon {
   background: linear-gradient(180deg, #d7e8ff 0 38%, #6f94bd 39% 100%);
 }
@@ -570,6 +600,7 @@ a {
 
 .work-window,
 .projects-window,
+.blog-window,
 .experience-window,
 .hobbies-window,
 .interests-window,
@@ -600,6 +631,7 @@ a {
 }
 
 .bullet-list,
+.blog-preview-list,
 .project-list,
 .timeline,
 .repo-list,
@@ -610,6 +642,8 @@ a {
 }
 
 .bullet-list article,
+.blog-preview-card,
+.blog-preview-empty,
 .project-row,
 .timeline-item,
 .repo-row,
@@ -621,6 +655,8 @@ a {
 }
 
 .bullet-list h3,
+.blog-preview-card h3,
+.blog-preview-empty h3,
 .project-row h3,
 .timeline-item h3,
 .repo-row h3,
@@ -632,6 +668,8 @@ a {
 }
 
 .bullet-list p,
+.blog-preview-card p,
+.blog-preview-empty p,
 .project-row p,
 .timeline-item p,
 .repo-row p,
@@ -642,6 +680,13 @@ a {
 }
 
 .project-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.blog-preview-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
@@ -1039,6 +1084,7 @@ a {
   }
 
   .project-row,
+  .blog-preview-card,
   .repo-card,
   .github-profile-card,
   .linkedin-head {

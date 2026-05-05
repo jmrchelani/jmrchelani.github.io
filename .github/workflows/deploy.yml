@@ -1,0 +1,57 @@
+name: Build and deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build blog
+        run: npm run build
+
+      - name: Prepare static output
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='content' \
+            --exclude='dist' \
+            --exclude='node_modules' \
+            --exclude='output' \
+            --exclude='BLOGGING.md' \
+            --exclude='build-blog.js' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            ./ dist/
+          touch dist/.nojekyll
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          cname: jmrchelani.com

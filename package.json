@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build": "node build-blog.js",
+    "blog:build": "node build-blog.js"
+  }
+}

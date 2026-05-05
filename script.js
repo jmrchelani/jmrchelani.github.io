@@ -6,7 +6,7 @@ const profile = {
   role: "Multidisciplinary Developer",
   location: "Pakistan",
   bio: "I build software across product UI, full-stack development, automation, and content systems with the same attention to usefulness and feel.",
-  websiteUrl: "https://jmrchelani.github.io/",
+  websiteUrl: "https://jmrchelani.com/",
   githubUsername: "jmrchelani",
   githubUrl: "https://github.com/jmrchelani",
   linkedinUrl: "https://www.linkedin.com/in/jmrchelani/",
@@ -161,6 +161,7 @@ const apps = [
   { id: "home", label: "About Milton", title: "About Milton", icon: "home", x: 285, y: 52, w: 640, defaultOpen: true },
   { id: "work", label: "Craft", title: "Craft - What I make and how I work", icon: "craft", x: 210, y: 110, w: 710, pinned: true },
   { id: "projects", label: "Projects", title: "Featured Projects", icon: "projects", x: 350, y: 135, w: 760, pinned: true },
+  { id: "blog", label: "Blog", title: "Milton's Blog", icon: "blog", x: 430, y: 112, w: 680, pinned: true },
   { id: "experience", label: "Experience", title: "Experience", icon: "experience", x: 405, y: 86, w: 640, pinned: true },
   { id: "github", label: "GitHub", title: "GitHub - jmrchelani", icon: "github", x: 250, y: 82, w: 760, pinned: true },
   { id: "linkedin", label: "LinkedIn", title: "LinkedIn - Professional Snapshot", icon: "linkedin", x: 315, y: 156, w: 700, pinned: true },
@@ -173,6 +174,7 @@ const windowNotes = {
   home: "Profile overview",
   work: "Scope and working style",
   projects: "Live repo activity when GitHub is available",
+  blog: "Markdown posts generated as SEO pages",
   experience: "Where the work has happened",
   github: "Open the app first, then jump to the URL",
   linkedin: "Condensed professional view",
@@ -276,6 +278,41 @@ function renderRepoCards(repos) {
     .join("");
 }
 
+function getBlogPosts() {
+  return Array.isArray(window.BLOG_POSTS) ? window.BLOG_POSTS : [];
+}
+
+function renderBlogPosts() {
+  const posts = getBlogPosts();
+
+  if (!posts.length) {
+    return `
+      <article class="blog-preview-empty">
+        <h3>No posts generated yet</h3>
+        <p>Add Markdown files in content/blog, then run npm run build.</p>
+      </article>
+    `;
+  }
+
+  return posts
+    .map(
+      (post) => `
+        <article class="blog-preview-card">
+          <div>
+            <h3>${escapeHTML(post.title)}</h3>
+            <p>${escapeHTML(post.description)}</p>
+            <div class="repo-meta">
+              <span class="tag">${escapeHTML(formatDate(post.date))}</span>
+              ${(post.tags || []).slice(0, 3).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}
+            </div>
+          </div>
+          <a class="xp-link-button" href="/blog/${escapeHTML(post.slug)}/">Open post</a>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function renderExperienceCards() {
   return portfolioData.experience
     .map(
@@ -341,6 +378,20 @@ focus: products ui automation systems</pre>
           <button type="button" data-open="github">Open GitHub app</button>
         </div>
         <div id="projectList" class="project-list">${renderRepoCards(portfolioData.fallbackProjects)}</div>
+      </div>
+    `,
+    blog: `
+      <div class="blog-window">
+        <div class="section-heading">
+          <div>
+            <h2>Markdown posts</h2>
+            <p class="section-copy">
+              Posts are written in content/blog and generated into indexable pages at jmrchelani.com/blog/slug/.
+            </p>
+          </div>
+          <a class="xp-link-button" href="/blog/">Open blog</a>
+        </div>
+        <div class="blog-preview-list">${renderBlogPosts()}</div>
       </div>
     `,
     experience: `
@@ -449,7 +500,7 @@ function renderChrome() {
     .map((app) => `<button type="button" data-open="${escapeHTML(app.id)}" title="${escapeHTML(app.label)}">${escapeHTML(app.label)}</button>`)
     .join("");
 
-  selectors.startMenuList.innerHTML = ["projects", "experience", "github", "linkedin", "contact"]
+  selectors.startMenuList.innerHTML = ["projects", "blog", "experience", "github", "linkedin", "contact"]
     .map((id) => `<button type="button" data-open="${id}">${escapeHTML(appMap.get(id).label)}</button>`)
     .join("");
 }
